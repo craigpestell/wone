@@ -1,185 +1,70 @@
-import { Editor, getEventRange, getEventTransfer } from 'slate-react';
-import { Block, Value } from 'slate';
-import Html from 'slate-html-serializer'
-
+import { Editor } from 'slate-react';
+import { Value } from 'slate';
 import React from 'react';
-import initialValueMock from './value.json';
-import imageExtensions from 'image-extensions';
-import isUrl from 'is-url';
 import styled from 'react-emotion';
+
+import initialValue from './value.json';
+import { isKeyHotkey } from 'is-hotkey';
 import { Button, Icon, Toolbar } from '../../components';
 
+/**
+ * Define the default node type.
+ *
+ * @type {String}
+ */
 
-const BLOCK_TAGS = {
-  blockquote: 'quote',
-  p: 'paragraph',
-  pre: 'code',
-};
-
-// Add a dictionary of mark tags.
-const MARK_TAGS = {
-  em: 'italic',
-  strong: 'bold',
-  u: 'underline',
-}
-const rules = [
-  {
-    deserialize(el, next) {
-      const type = BLOCK_TAGS[el.tagName.toLowerCase()]
-      if (type) {
-        return {
-          object: 'block',
-          type: type,
-          data: {
-            className: el.getAttribute('class'),
-          },
-          nodes: next(el.childNodes),
-        }
-      }
-    },
-    serialize(obj, children) {
-      if (obj.object == 'block') {
-        switch (obj.type) {
-          case 'code':
-            return (
-              <pre>
-                <code>{children}</code>
-              </pre>
-            )
-          case 'paragraph':
-            return <p className={obj.data.get('className')}>{children}</p>
-          case 'quote':
-            return <blockquote>{children}</blockquote>
-        }
-      }
-    },
-  },
-  // Add a new rule that handles marks...
-  {
-    deserialize(el, next) {
-      const type = MARK_TAGS[el.tagName.toLowerCase()]
-      if (type) {
-        return {
-          object: 'mark',
-          type: type,
-          nodes: next(el.childNodes),
-        }
-      }
-    },
-    serialize(obj, children) {
-      if (obj.object == 'mark') {
-        switch (obj.type) {
-          case 'bold':
-            return <strong>{children}</strong>
-          case 'italic':
-            return <em>{children}</em>
-          case 'underline':
-            return <u>{children}</u>
-        }
-      }
-    },
-  },
-]
-
-// Create a new serializer instance with our `rules` from above.
-const html = new Html({ rules })
-
-// Define a React component renderer for our code blocks.
-function CodeNode(props) {
-  return (
-    <pre {...props.attributes}>
-      <code>{props.children}</code>
-    </pre>
-  );
-}
+const DEFAULT_NODE = 'paragraph';
 
 /**
- * A styled image block component.
+ * Define hotkey matchers.
+ *
+ * @type {Function}
+ */
+
+const isBoldHotkey = isKeyHotkey('mod+b');
+const isItalicHotkey = isKeyHotkey('mod+i');
+const isUnderlinedHotkey = isKeyHotkey('mod+u');
+const isCodeHotkey = isKeyHotkey('mod+`');
+
+/**
+ * The rich text example.
  *
  * @type {Component}
  */
 
-const Image = styled('img')`
-  display: block;
-  max-width: 100%;
-  max-height: 20em;
-  box-shadow: ${props => (props.selected ? '0 0 0 2px blue;' : 'none')};
-`;
-
-/*
- * A function to determine whether a URL has an image extension.
- *
- * @param {String} url
- * @return {Boolean}
- */
-
-function isImage(url) {
-  return !!imageExtensions.find(url.endsWith);
-}
-
-/**
- * A change function to standardize inserting images.
- *
- * @param {Change} change
- * @param {String} src
- * @param {Range} target
- */
-
-function insertImage(change, src, target) {
-  if (target) {
-    change.select(target);
-  }
-
-  change.insertBlock({
-    type: 'image',
-    data: { src },
-  });
-}
-
-/**
- * The editor's schema.
- *
- * @type {Object}
- */
-
-const schema = {
-  document: {
-    last: { type: 'paragraph' },
-    normalize: (change, { code, node, child }) => {
-      switch (code) {
-        case 'last_child_type_invalid': {
-          const paragraph = Block.create('paragraph');
-          return change.insertNodeByKey(node.key, node.nodes.size, paragraph);
-        }
-      }
-    },
-  },
-  blocks: {
-    image: {
-      isVoid: true,
-    },
-  },
-};
-
-
-// Load the initial value from Local Storage or a default.
-const initialValue = localStorage.getItem('content') || initialValueMock;
-
-/**
- * The images example.
- *
- * @type {Component}
- */
-
-class Images extends React.Component {
+class RichTextExample extends React.Component {
   /**
-   * Deserialize the raw initial value.
+   * Deserialize the initial editor value.
    *
    * @type {Object}
    */
 
   state = {
-    value: html.deserialize(initialValue),
+    value: Value.fromJSON(initialValue),
+  };
+
+  /**
+   * Check if the current selection has a mark with `type` in it.
+   *
+   * @param {String} type
+   * @return {Boolean}
+   */
+
+  hasMark = type => {
+    const { value } = this.state;
+    return value.activeMarks.some(mark => mark.type == type);
+  };
+
+  /**
+   * Check if the any of the currently selected blocks are of `type`.
+   *
+   * @param {String} type
+   * @return {Boolean}
+   */
+
+  hasBlock = type => {
+    const { value } = this.state;
+    return value.blocks.some(node => node.type == type);
   };
 
   /**
@@ -193,38 +78,83 @@ class Images extends React.Component {
   };
 
   /**
-   * Render the app.
+   * Render.
    *
-   * @return {Element} element
+   * @return {Element}
    */
 
   render() {
-    console.log('props: ', this.props);
     const St = styled('pre')`
       background-color: grey;
-`;
-
+    `;
     return (
       <div>
         <Toolbar>
-          <Button onMouseDown={this.onClickImage}>
-            <Icon>image</Icon>
-          </Button>
+          {this.renderMarkButton('bold', 'format_bold')}
+          {this.renderMarkButton('italic', 'format_italic')}
+          {this.renderMarkButton('underlined', 'format_underlined')}
+          {this.renderMarkButton('code', 'code')}
+          {this.renderBlockButton('heading-one', 'looks_one')}
+          {this.renderBlockButton('heading-two', 'looks_two')}
+          {this.renderBlockButton('block-quote', 'format_quote')}
+          {this.renderBlockButton('numbered-list', 'format_list_numbered')}
+          {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
         </Toolbar>
         <Editor
-          placeholder="Enter some text..."
+          spellCheck
+          autoFocus
+          placeholder="Enter some rich text..."
           ref={this.ref}
           value={this.state.value}
-          schema={schema}
           onChange={this.onChange}
-          onDrop={this.onDropOrPaste}
-          onPaste={this.onDropOrPaste}
+          onKeyDown={this.onKeyDown}
           renderNode={this.renderNode}
           renderMark={this.renderMark}
-          onKeyDown={this.onKeyDown}
         />
         <St>{JSON.stringify(this.state.value, undefined, 2)}</St>
       </div>
+    );
+  }
+
+  /**
+   * Render a mark-toggling toolbar button.
+   *
+   * @param {String} type
+   * @param {String} icon
+   * @return {Element}
+   */
+
+  renderMarkButton = (type, icon) => {
+    const isActive = this.hasMark(type);
+
+    return (
+      <Button active={isActive} onMouseDown={event => this.onClickMark(event, type)}>
+        <Icon>{icon}</Icon>
+      </Button>
+    );
+  };
+
+  /**
+   * Render a block-toggling toolbar button.
+   *
+   * @param {String} type
+   * @param {String} icon
+   * @return {Element}
+   */
+
+  renderBlockButton = (type, icon) => {
+    let isActive = this.hasBlock(type);
+
+    if (['numbered-list', 'bulleted-list'].includes(type)) {
+      const { value } = this.state;
+      const parent = value.document.getParent(value.blocks.first().key);
+      isActive = this.hasBlock('list-item') && parent && parent.type === type;
+    }
+
+    return (
+      <Button active={isActive} onMouseDown={event => this.onClickBlock(event, type)}>
+        <Icon>{icon}</Icon>
+      </Button>
     );
   };
 
@@ -235,123 +165,145 @@ class Images extends React.Component {
    * @return {Element}
    */
 
-  renderNode = (props, next) => {
-    const { node } = props;
-    switch (props.node.type) {
-      case 'code':
-        return (
-          <pre {...props.attributes}>
-            <code>{props.children}</code>
-          </pre>
-        )
-      case 'paragraph':
-        return (
-          <p {...props.attributes} className={node.data.get('className')}>
-            {props.children}
-          </p>
-        )
-      case 'quote':
-        return <blockquote {...props.attributes}>{props.children}</blockquote>
+  renderNode = (props, editor, next) => {
+    const { attributes, children, node } = props;
+
+    switch (node.type) {
+      case 'block-quote':
+        return <blockquote {...attributes}>{children}</blockquote>;
+      case 'bulleted-list':
+        return <ul {...attributes}>{children}</ul>;
+      case 'heading-one':
+        return <h1 {...attributes}>{children}</h1>;
+      case 'heading-two':
+        return <h2 {...attributes}>{children}</h2>;
+      case 'list-item':
+        return <li {...attributes}>{children}</li>;
+      case 'numbered-list':
+        return <ol {...attributes}>{children}</ol>;
       default:
-        return next()
+        return next();
     }
-  }
-  // Add a `renderMark` method to render marks.
-  renderMark = (props, next) => {
-    const { mark, attributes } = props
+  };
+
+  /**
+   * Render a Slate mark.
+   *
+   * @param {Object} props
+   * @return {Element}
+   */
+
+  renderMark = (props, editor, next) => {
+    const { children, mark, attributes } = props;
+
     switch (mark.type) {
       case 'bold':
-        return <strong {...attributes}>{props.children}</strong>
+        return <strong {...attributes}>{children}</strong>;
+      case 'code':
+        return <code {...attributes}>{children}</code>;
       case 'italic':
-        return <em {...attributes}>{props.children}</em>
-      case 'underline':
-        return <u {...attributes}>{props.children}</u>
+        return <em {...attributes}>{children}</em>;
+      case 'underlined':
+        return <u {...attributes}>{children}</u>;
       default:
-        return next()
+        return next();
     }
-  }
+  };
+
   /**
-   * On change.
+   * On change, save the new `value`.
    *
-   * @param {Change} change
+   * @param {Editor} editor
    */
 
   onChange = ({ value }) => {
-    // When the document changes, save the serialized HTML to Local Storage.
-    if (value.document != this.state.value.document) {
-      const string = html.serialize(value)
-      localStorage.setItem('content', string)
+    this.setState({ value });
+  };
+
+  /**
+   * On key down, if it's a formatting command toggle a mark.
+   *
+   * @param {Event} event
+   * @param {Editor} editor
+   * @return {Change}
+   */
+
+  onKeyDown = (event, editor, next) => {
+    let mark;
+
+    if (isBoldHotkey(event)) {
+      mark = 'bold';
+    } else if (isItalicHotkey(event)) {
+      mark = 'italic';
+    } else if (isUnderlinedHotkey(event)) {
+      mark = 'underlined';
+    } else if (isCodeHotkey(event)) {
+      mark = 'code';
+    } else {
+      return next();
     }
 
-    this.setState({ value })
+    event.preventDefault();
+    editor.toggleMark(mark);
   };
 
   /**
-   * On clicking the image button, prompt for an image and insert it.
+   * When a mark button is clicked, toggle the current mark.
    *
    * @param {Event} event
+   * @param {String} type
    */
 
-  onClickImage = event => {
+  onClickMark = (event, type) => {
     event.preventDefault();
-    const src = window.prompt('Enter the URL of the image:');
-    if (!src) return;
-    this.editor.change(insertImage, src);
-  };
-
-  onKeyDown = (event, change, next) => {
-    console.log('onKeyDown');
-    if (event.key != '`' || !event.ctrlKey) return next();
-    event.preventDefault();
-    // Determine whether any of the currently selected blocks are code blocks.
-    const isCode = change.value.blocks.some(block => block.type == 'code');
-
-    // Toggle the block type depending on `isCode`.
-    change.setBlocks(isCode ? 'paragraph' : 'code');
-    return true;
+    this.editor.toggleMark(type);
   };
 
   /**
-   * On drop, insert the image wherever it is dropped.
+   * When a block button is clicked, toggle the block type.
    *
    * @param {Event} event
-   * @param {Change} change
-   * @param {Function} next
+   * @param {String} type
    */
 
-  onDropOrPaste = (event, change, next) => {
-    const { editor } = change;
-    const target = getEventRange(event, editor);
-    if (!target && event.type === 'drop') return next();
+  onClickBlock = (event, type) => {
+    event.preventDefault();
 
-    const transfer = getEventTransfer(event);
-    const { type, text, files } = transfer;
+    const { editor } = this;
+    const { value } = editor;
+    const { document } = value;
 
-    if (type === 'files') {
-      for (const file of files) {
-        const reader = new FileReader();
-        const [mime] = file.type.split('/');
-        if (mime !== 'image') continue;
+    // Handle everything but list buttons.
+    if (type != 'bulleted-list' && type != 'numbered-list') {
+      const isActive = this.hasBlock(type);
+      const isList = this.hasBlock('list-item');
 
-        reader.addEventListener('load', () => {
-          editor.change(c => {
-            c.call(insertImage, reader.result, target);
-          });
-        });
-
-        reader.readAsDataURL(file);
+      if (isList) {
+        editor
+          .setBlocks(isActive ? DEFAULT_NODE : type)
+          .unwrapBlock('bulleted-list')
+          .unwrapBlock('numbered-list');
+      } else {
+        editor.setBlocks(isActive ? DEFAULT_NODE : type);
       }
-      return;
-    }
+    } else {
+      // Handle the extra wrapping required for list buttons.
+      const isList = this.hasBlock('list-item');
+      const isType = value.blocks.some(block => {
+        return !!document.getClosest(block.key, parent => parent.type == type);
+      });
 
-    if (type === 'text') {
-      if (!isUrl(text)) return next();
-      if (!isImage(text)) return next();
-      change.call(insertImage, text, target);
-      return;
+      if (isList && isType) {
+        editor
+          .setBlocks(DEFAULT_NODE)
+          .unwrapBlock('bulleted-list')
+          .unwrapBlock('numbered-list');
+      } else if (isList) {
+        editor.unwrapBlock(type == 'bulleted-list' ? 'numbered-list' : 'bulleted-list').wrapBlock(type);
+      } else {
+        editor.setBlocks('list-item').wrapBlock(type);
+      }
     }
-
-    next();
   };
 }
 
@@ -359,4 +311,4 @@ class Images extends React.Component {
  * Export.
  */
 
-export default Images;
+export default RichTextExample;

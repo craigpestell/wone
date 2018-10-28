@@ -55,7 +55,7 @@ export class AddOrEditPostContainer extends React.Component {
   render() {
     const { initialValues } = this.props;
     const heading = initialValues && initialValues.id ? 'Edit' : 'Add';
-  console.log('initialValues: ', initialValues);
+    console.log('initialValues: ', initialValues);
     return (
       <div className="container">
         <PostForm
