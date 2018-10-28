@@ -1,0 +1,22 @@
+{
+  "name": "slate-when",
+  "description": "A Slate plugin to restrict another plugin to a condition.",
+  "version": "0.2.0",
+  "license": "MIT",
+  "repository": "git://github.com/ianstormtaylor/slate-plugins.git",
+  "main": "lib/slate-when.js",
+  "module": "lib/slate-when.es.js",
+  "umd": "dist/slate-when.js",
+  "umdMin": "dist/slate-when.min.js",
+  "umdGlobals": {
+    "slate": "Slate",
+    "slate-react": "SlateReact"
+  },
+  "peerDependencies": {
+    "slate": ">=0.42.2",
+    "slate-react": ">=0.19.2"
+  },
+  "keywords": [
+    "slate"
+  ]
+}

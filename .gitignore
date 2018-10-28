@@ -1,0 +1,14 @@
+packages/api/.editorconfig
+packages/api/.eslintignore
+packages/api/.eslintrc
+packages/api/.gitignore
+packages/api/.npmignore
+packages/api/README.md
+packages/api/admin/
+packages/api/config/
+packages/api/favicon.ico
+packages/api/package.json
+packages/api/plugins/
+packages/api/public/
+packages/api/server.js
+

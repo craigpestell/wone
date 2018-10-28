@@ -1,0 +1,30 @@
+{
+  "name": "slate-auto-replace",
+  "description": "A Slate plugin to automatically transform certain input.",
+  "version": "0.12.0",
+  "license": "MIT",
+  "repository": "git://github.com/ianstormtaylor/slate-plugins.git",
+  "main": "lib/slate-auto-replace.js",
+  "module": "lib/slate-auto-replace.es.js",
+  "umd": "dist/slate-auto-replace.js",
+  "umd:main": "dist/slate-auto-replace.js",
+  "umdMin": "dist/slate-auto-replace.min.js",
+  "umdGlobals": {
+    "slate": "Slate",
+    "slate-react": "SlateReact"
+  },
+  "dependencies": {
+    "is-hotkey": "^0.0.3",
+    "type-of": "^2.0.1"
+  },
+  "peerDependencies": {
+    "slate": ">=0.42.2",
+    "slate-react": ">=0.19.2"
+  },
+  "devDependencies": {
+    "microbundle": "^0.6.0"
+  },
+  "keywords": [
+    "slate"
+  ]
+}
