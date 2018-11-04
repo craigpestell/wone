@@ -9,6 +9,8 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
   return prev;
 }, {});
 
+console.log('path to plugin: ', path.join(__dirname, './packages/cloudinary-image-plugin'));
+
 module.exports = {
   mode: 'development',
   entry: './src/app.js',
@@ -16,8 +18,15 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
-  plugins: [new webpack.DefinePlugin(envKeys)],
+  plugins: [
+    new webpack.DefinePlugin(envKeys),
+    new webpack.ProvidePlugin({ BrowserFS: 'bfsGlobal', process: 'processGlobal', Buffer: 'bufferGlobal' }),
+  ],
   module: {
+    // REQUIRED to avoid issue "Uncaught TypeError: BrowserFS.BFSRequire is not a function"
+    // See: https://github.com/jvilk/BrowserFS/issues/201
+    noParse: /browserfs\.js/,
+    
     rules: [
       {
         loader: 'babel-loader',
@@ -57,8 +66,8 @@ module.exports = {
         target: 'http://localhost:' + process.env.PROXY_PORT_API,
         changeOrigin: true,
         pathRewrite: {
-        '^/api': ''
-        }
+          '^/api': '',
+        },
       },
     },
     quiet: false,
@@ -76,10 +85,18 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'slate-drop-or-paste-images': path.resolve(__dirname, 'packages/slate-drop-or-paste-images'),
+      fs: 'browserfs/dist/shims/fs.js',
+      buffer: 'browserfs/dist/shims/buffer.js',
+      path: 'browserfs/dist/shims/path.js',
+      processGlobal: 'browserfs/dist/shims/process.js',
+      bufferGlobal: 'browserfs/dist/shims/bufferGlobal.js',
+      bfsGlobal: require.resolve('browserfs'),
+      'cloudinary-image-plugin': path.join(__dirname, './packages/cloudinary-image-plugin/dist/index.js'),
     },
   },
   node: {
     fs: 'empty',
+    process: false,
+    Buffer: false,
   },
 };
