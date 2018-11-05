@@ -5,7 +5,7 @@
     "main": "app.js",
     "scripts": {
         "build": "webpack",
-        "dev-server": "webpack-dev-server"
+        "start": "webpack-dev-server"
     },
     "author": "Craig Pestell",
     "license": "MIT",
