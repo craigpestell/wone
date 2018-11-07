@@ -53,7 +53,7 @@
         "style-loader": "^0.21.0",
         "toastr": "^2.1.4",
         "webpack": "^4.20.2",
-        "webpack-dev-server": "^3.1.3"
+        "webpack-dev-server": "^3.1.10"
     },
     "devDependencies": {
         "cloudinary": "^1.11.0",

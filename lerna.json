@@ -1,7 +1,8 @@
 {
   "command": {
     "bootstrap": {
-      "npmClient": "yarn"
+      "npmClient": "yarn",
+      "useWorkspaces": true
     }
   },
   "packages": [
