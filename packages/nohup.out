@@ -1,0 +1,121 @@
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] MongoDB starting : pid=1589 port=27017 dbpath=/data/db 64-bit host=DESKTOP-S5FSADB
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] db version v3.6.3
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] git version: 9586e557d54ef70f9ca4b43c26892cd55257e1a5
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.0g  2 Nov 2017
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] allocator: tcmalloc
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] modules: none
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten] build environment:
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten]     distarch: x86_64
+2018-11-03T23:17:37.959-0700 I CONTROL  [initandlisten]     target_arch: x86_64
+2018-11-03T23:17:37.960-0700 I CONTROL  [initandlisten] options: {}
+2018-11-03T23:17:37.960-0700 I -        [initandlisten] Detected data files in /data/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2018-11-03T23:17:37.960-0700 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=32220M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2018-11-03T23:17:38.455-0700 I STORAGE  [initandlisten] WiredTiger message [1541312258:455316][1589:0x7ffe28a60f80], txn-recover: Main recovery loop: starting at 1/14848
+2018-11-03T23:17:38.541-0700 I STORAGE  [initandlisten] WiredTiger message [1541312258:541200][1589:0x7ffe28a60f80], txn-recover: Recovering log 1 through 2
+2018-11-03T23:17:38.600-0700 I STORAGE  [initandlisten] WiredTiger message [1541312258:600021][1589:0x7ffe28a60f80], txn-recover: Recovering log 2 through 2
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] 
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] ** WARNING: You are running this process as the root user, which is not recommended.
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] 
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2018-11-03T23:17:38.673-0700 I CONTROL  [initandlisten] 
+2018-11-03T23:17:38.678-0700 I FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory '/data/db/diagnostic.data'
+2018-11-03T23:17:38.678-0700 I NETWORK  [initandlisten] waiting for connections on port 27017
+2018-11-03T23:18:04.736-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50384 #1 (1 connection now open)
+2018-11-03T23:18:04.742-0700 I NETWORK  [conn1] received client metadata from 127.0.0.1:50384 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:18:04.746-0700 I NETWORK  [conn1] end connection 127.0.0.1:50384 (0 connections now open)
+2018-11-03T23:18:50.960-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50407 #2 (1 connection now open)
+2018-11-03T23:18:50.965-0700 I NETWORK  [conn2] received client metadata from 127.0.0.1:50407 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:18:50.970-0700 I NETWORK  [conn2] end connection 127.0.0.1:50407 (0 connections now open)
+2018-11-03T23:33:23.537-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50604 #3 (1 connection now open)
+2018-11-03T23:33:23.542-0700 I NETWORK  [conn3] received client metadata from 127.0.0.1:50604 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:33:23.547-0700 I NETWORK  [conn3] end connection 127.0.0.1:50604 (0 connections now open)
+2018-11-03T23:36:39.160-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50815 #4 (1 connection now open)
+2018-11-03T23:36:39.163-0700 I NETWORK  [conn4] received client metadata from 127.0.0.1:50815 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:36:39.192-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50817 #5 (2 connections now open)
+2018-11-03T23:36:39.195-0700 I STORAGE  [conn4] createCollection: api.users-permissions_role with generated UUID: de820fd2-6b71-45e5-afe2-caea642d9117
+2018-11-03T23:36:39.212-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50818 #6 (3 connections now open)
+2018-11-03T23:36:39.220-0700 I INDEX    [conn4] build index on: api.users-permissions_role properties: { v: 2, unique: true, key: { type: 1 }, name: "type_1", ns: "api.users-permissions_role", background: true }
+2018-11-03T23:36:39.220-0700 I STORAGE  [conn5] createCollection: api.users-permissions_user with generated UUID: 21a7eca2-07fb-41a0-b2d2-10811c67ab5a
+2018-11-03T23:36:39.231-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50819 #7 (4 connections now open)
+2018-11-03T23:36:39.232-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50820 #8 (5 connections now open)
+2018-11-03T23:36:39.243-0700 I INDEX    [conn5] build index on: api.users-permissions_user properties: { v: 2, unique: true, key: { username: 1 }, name: "username_1", ns: "api.users-permissions_user", background: true }
+2018-11-03T23:36:39.243-0700 I INDEX    [conn5] build index done.  scanned 0 total records. 0 secs
+2018-11-03T23:36:39.243-0700 I INDEX    [conn4] build index done.  scanned 0 total records. 0 secs
+2018-11-03T23:36:39.256-0700 I STORAGE  [conn7] createCollection: api.core_store with generated UUID: 5007118e-5964-4375-9681-fc001c74f22b
+2018-11-03T23:36:39.392-0700 I STORAGE  [conn4] createCollection: api.users-permissions_permission with generated UUID: decc8c60-1619-4fa0-bb41-b7ab8015565a
+2018-11-03T23:36:51.306-0700 I NETWORK  [conn4] end connection 127.0.0.1:50815 (4 connections now open)
+2018-11-03T23:36:51.306-0700 I NETWORK  [conn6] end connection 127.0.0.1:50818 (3 connections now open)
+2018-11-03T23:36:51.306-0700 I NETWORK  [conn7] end connection 127.0.0.1:50819 (2 connections now open)
+2018-11-03T23:36:51.306-0700 I NETWORK  [conn5] end connection 127.0.0.1:50817 (1 connection now open)
+2018-11-03T23:36:51.306-0700 I NETWORK  [conn8] end connection 127.0.0.1:50820 (0 connections now open)
+2018-11-03T23:37:19.573-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50839 #9 (1 connection now open)
+2018-11-03T23:37:19.576-0700 I NETWORK  [conn9] received client metadata from 127.0.0.1:50839 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:37:19.605-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50841 #10 (2 connections now open)
+2018-11-03T23:37:19.626-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50842 #11 (3 connections now open)
+2018-11-03T23:37:19.652-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50843 #12 (4 connections now open)
+2018-11-03T23:37:53.859-0700 I NETWORK  [conn9] end connection 127.0.0.1:50839 (3 connections now open)
+2018-11-03T23:37:53.859-0700 I NETWORK  [conn10] end connection 127.0.0.1:50841 (2 connections now open)
+2018-11-03T23:37:53.859-0700 I NETWORK  [conn11] end connection 127.0.0.1:50842 (1 connection now open)
+2018-11-03T23:37:53.859-0700 I NETWORK  [conn12] end connection 127.0.0.1:50843 (0 connections now open)
+2018-11-03T23:38:19.941-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50865 #13 (1 connection now open)
+2018-11-03T23:38:19.944-0700 I NETWORK  [conn13] received client metadata from 127.0.0.1:50865 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:38:19.974-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50867 #14 (2 connections now open)
+2018-11-03T23:38:19.992-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50868 #15 (3 connections now open)
+2018-11-03T23:38:20.018-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50869 #16 (4 connections now open)
+2018-11-03T23:38:20.080-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:50870 #17 (5 connections now open)
+2018-11-03T23:39:27.681-0700 I STORAGE  [conn13] createCollection: api.post with generated UUID: c792c1d6-9d8f-49f3-9b3b-0e95bb2434a8
+2018-11-03T23:39:41.963-0700 I NETWORK  [conn13] end connection 127.0.0.1:50865 (4 connections now open)
+2018-11-03T23:39:41.963-0700 I NETWORK  [conn15] end connection 127.0.0.1:50868 (2 connections now open)
+2018-11-03T23:39:41.963-0700 I NETWORK  [conn14] end connection 127.0.0.1:50867 (3 connections now open)
+2018-11-03T23:39:41.963-0700 I NETWORK  [conn16] end connection 127.0.0.1:50869 (1 connection now open)
+2018-11-03T23:39:41.963-0700 I NETWORK  [conn17] end connection 127.0.0.1:50870 (0 connections now open)
+2018-11-03T23:39:47.899-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51005 #18 (1 connection now open)
+2018-11-03T23:39:47.902-0700 I NETWORK  [conn18] received client metadata from 127.0.0.1:51005 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:39:47.933-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51007 #19 (2 connections now open)
+2018-11-03T23:39:47.951-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51010 #20 (3 connections now open)
+2018-11-03T23:39:47.982-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51011 #21 (4 connections now open)
+2018-11-03T23:41:13.152-0700 I NETWORK  [conn18] end connection 127.0.0.1:51005 (1 connection now open)
+2018-11-03T23:41:13.152-0700 I NETWORK  [conn20] end connection 127.0.0.1:51010 (3 connections now open)
+2018-11-03T23:41:13.152-0700 I NETWORK  [conn19] end connection 127.0.0.1:51007 (2 connections now open)
+2018-11-03T23:41:13.152-0700 I NETWORK  [conn21] end connection 127.0.0.1:51011 (0 connections now open)
+2018-11-03T23:44:40.615-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51482 #22 (1 connection now open)
+2018-11-03T23:44:40.619-0700 I NETWORK  [conn22] received client metadata from 127.0.0.1:51482 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:44:40.650-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51484 #23 (2 connections now open)
+2018-11-03T23:44:40.670-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51485 #24 (3 connections now open)
+2018-11-03T23:44:40.695-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51486 #25 (4 connections now open)
+2018-11-03T23:44:45.750-0700 I NETWORK  [conn22] end connection 127.0.0.1:51482 (3 connections now open)
+2018-11-03T23:44:45.750-0700 I NETWORK  [conn24] end connection 127.0.0.1:51485 (1 connection now open)
+2018-11-03T23:44:45.750-0700 I NETWORK  [conn23] end connection 127.0.0.1:51484 (2 connections now open)
+2018-11-03T23:44:45.750-0700 I NETWORK  [conn25] end connection 127.0.0.1:51486 (0 connections now open)
+2018-11-03T23:44:54.489-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51516 #26 (1 connection now open)
+2018-11-03T23:44:54.494-0700 I NETWORK  [conn26] received client metadata from 127.0.0.1:51516 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:44:54.527-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51518 #27 (2 connections now open)
+2018-11-03T23:44:54.546-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51519 #28 (3 connections now open)
+2018-11-03T23:44:54.574-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51522 #29 (4 connections now open)
+2018-11-03T23:44:58.534-0700 I NETWORK  [conn26] end connection 127.0.0.1:51516 (3 connections now open)
+2018-11-03T23:44:58.534-0700 I NETWORK  [conn27] end connection 127.0.0.1:51518 (2 connections now open)
+2018-11-03T23:44:58.535-0700 I NETWORK  [conn28] end connection 127.0.0.1:51519 (1 connection now open)
+2018-11-03T23:44:58.535-0700 I NETWORK  [conn29] end connection 127.0.0.1:51522 (0 connections now open)
+2018-11-03T23:45:35.621-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51585 #30 (1 connection now open)
+2018-11-03T23:45:35.625-0700 I NETWORK  [conn30] received client metadata from 127.0.0.1:51585 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:45:35.657-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51589 #31 (2 connections now open)
+2018-11-03T23:45:35.674-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51590 #32 (3 connections now open)
+2018-11-03T23:45:35.706-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51591 #33 (4 connections now open)
+2018-11-03T23:47:23.089-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:51761 #34 (5 connections now open)
+2018-11-03T23:52:08.494-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:52223 #35 (6 connections now open)
+2018-11-03T23:52:08.497-0700 I NETWORK  [conn35] received client metadata from 127.0.0.1:52223 conn: { driver: { name: "nodejs", version: "3.1.8" }, os: { type: "Linux", name: "linux", architecture: "x64", version: "4.4.0-17134-Microsoft" }, platform: "Node.js v8.12.0, LE, mongodb-core: 3.1.7" }
+2018-11-03T23:52:08.536-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:52224 #36 (7 connections now open)
+2018-11-03T23:52:08.560-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:52226 #37 (8 connections now open)
+2018-11-03T23:52:08.587-0700 I NETWORK  [listener] connection accepted from 127.0.0.1:52227 #38 (9 connections now open)
+2018-11-04T00:22:39.358-0700 I NETWORK  [conn30] end connection 127.0.0.1:51585 (8 connections now open)
+2018-11-04T00:22:39.359-0700 I NETWORK  [conn31] end connection 127.0.0.1:51589 (7 connections now open)
+2018-11-04T00:22:39.359-0700 I NETWORK  [conn34] end connection 127.0.0.1:51761 (6 connections now open)
+2018-11-04T00:22:39.360-0700 I NETWORK  [conn32] end connection 127.0.0.1:51590 (5 connections now open)
+2018-11-04T00:22:39.360-0700 I NETWORK  [conn33] end connection 127.0.0.1:51591 (4 connections now open)
