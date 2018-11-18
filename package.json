@@ -3,5 +3,9 @@
   "private": true,
   "devDependencies": {
     "lerna": "^3.4.3"
+  },
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/strapi", "**/strapi/**", "**/strapi-hook-mongoose", "**/strapi-hook-mongoose/**"]
   }
 }

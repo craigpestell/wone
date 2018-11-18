@@ -1,3 +1,9 @@
+node_modules/
+nohup.out
+.vscode/
+lerna-debug.log
+yarn-error.log
+
 packages/api/.editorconfig
 packages/api/.eslintignore
 packages/api/.eslintrc
