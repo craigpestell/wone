@@ -32,6 +32,10 @@ module.exports = {
         loader: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/,
+        query: {
+          plugins: ['transform-runtime'],
+          presets: ['es2015', 'react', 'stage-0'] // <--- here
+      }
       },
       {
         test: /\.css$/,

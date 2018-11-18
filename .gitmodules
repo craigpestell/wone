@@ -1,0 +1,3 @@
+[submodule "packages/wone-slate-editor"]
+	path = packages/wone-slate-editor
+	url = https://github.com/craigpestell/wone-slate-editor

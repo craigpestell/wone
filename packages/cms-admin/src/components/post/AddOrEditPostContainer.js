@@ -2,12 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Editor from 'wone-slate-editor'
+import { Value } from 'slate'
 import toastr from 'toastr';
 import * as postAction from '../../store/actions/PostAction';
 import * as authorAction from '../../store/actions/AuthorAction';
 import PostForm from './PostForm'; // eslint-disable-line import/no-named-as-default
-import SlateEditor from '../SlateEditor';
+
 import { authorsFormattedForDropdown } from '../../store/selectors/selectors'; // eslint-disable-line import/no-named-as-default
+
+
+const initialValue = Value.fromJSON({
+  document: {
+    nodes: [
+      {
+        object: 'block',
+        type: 'paragraph',
+        nodes: [
+          {
+            object: 'text',
+            leaves: [
+              {
+                text: 'A line of text in a paragraph.',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+});
 
 export class AddOrEditPostContainer extends React.Component {
   constructor() {
@@ -24,6 +48,11 @@ export class AddOrEditPostContainer extends React.Component {
     this.props.action.getAuthorsAction().catch(error => {
       toastr.error(error);
     });
+  }
+
+  // On change, update the app's React state with the new editor value.
+  onChange = ({ value }) => {
+    this.setState({ value })
   }
 
   handleSave(values) {
@@ -55,7 +84,7 @@ export class AddOrEditPostContainer extends React.Component {
   render() {
     const { initialValues } = this.props;
     const heading = initialValues && initialValues.id ? 'Edit' : 'Add';
-    console.log('initialValues: ', initialValues);
+    console.log('initialValue: ', initialValue);
     return (
       <div className="container">
         <PostForm
@@ -65,7 +94,7 @@ export class AddOrEditPostContainer extends React.Component {
           handleCancel={this.handleCancel}
           initialValues={this.props.initialValues}
         />
-        {initialValues && <SlateEditor values={initialValues} />}
+        <Editor value={initialValue} onChange={this.onChange} />
       </div>
     );
   }
@@ -81,6 +110,7 @@ const mapStateToProps = (state, ownProps) => {
     };
   } else {
     return {
+      initialValue,
       authors: authorsFormattedForDropdown(state.authorReducer.authors),
     };
   }

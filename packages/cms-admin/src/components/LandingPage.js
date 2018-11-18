@@ -14,7 +14,7 @@ const LandingPage = () => (
 
 <br/>
 <Typography variant="display3" gutterBottom align="center">
-        Welcome to Rect Company
+        Admin
       </Typography>
     
    <Grid container spacing={24} >
